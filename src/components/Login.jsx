@@ -1,22 +1,22 @@
-// JoinNow.js
+// LoginPage.js
 import React, { useState } from 'react';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
+import { auth } from '../firebaseConfig';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../firebaseConfig'; 
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
-const JoinNow = () => {
+const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const navigate = useNavigate(); // Hook for navigation
+    const navigate = useNavigate();
 
-    const handleSignUp = async (event) => {
+    const handleLogin = async (event) => {
         event.preventDefault();
         setError('');
 
         try {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
             console.log(userCredential);
             navigate('/'); // Redirect to the homepage
         } catch (error) {
@@ -24,7 +24,7 @@ const JoinNow = () => {
         }
     };
 
-    const handleGoogleSignUp = async () => {
+    const handleGoogleSignIn = async () => {
         const provider = new GoogleAuthProvider();
         try {
             const userCredential = await signInWithPopup(auth, provider);
@@ -37,9 +37,9 @@ const JoinNow = () => {
 
     return (
         <Container className="text-light">
-            <h2 className="text-center my-4">Join Odyssey Group’s Cyber Fitness Hub</h2>
-            <Form onSubmit={handleSignUp}>
-            <Form.Group className="mb-3">
+            <h2 className="text-center my-4">Login to Your Account</h2>
+            <Form onSubmit={handleLogin}>
+                <Form.Group className="mb-3">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control 
                         type="email" 
@@ -61,20 +61,20 @@ const JoinNow = () => {
 
                 {error && <Alert variant="danger">{error}</Alert>}
 
-                <Button variant="primary" type="submit" className="w-100 mb-2">
-                    Get Started
+                <Button variant="primary" type="submit" className="w-100 mb-3">
+                    Login
                 </Button>
+
                 <Button 
-                    variant="primary" // Set the button color to blue
-                    onClick={handleGoogleSignUp} 
-                    className="w-100" // Set the width to 100%
+                    variant="primary" 
+                    onClick={handleGoogleSignIn} 
+                    className="w-100"
                 >
-                    Sign Up with Google
+                    Sign in with Google
                 </Button>
             </Form>
-            {error && <Alert variant="danger" className="mt-3">{error}</Alert>} 
         </Container>
     );
 };
 
-export default JoinNow;
+export default LoginPage;

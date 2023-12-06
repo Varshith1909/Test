@@ -8,6 +8,7 @@ import ScoringSystem from './components/ScoringSystem';
 import Testimonials from './components/Testimonials';
 import JoinNow from './components/JoinNow';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
+import LoginPage from './components/Login';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path='/scoring' element={<ScoringSystem />} />
         <Route path='/testimonial' element={<Testimonials />} />
         <Route path='/register' element={<JoinNow />} />
+        <Route path='/login' element={<LoginPage />} />
       </Routes>
     </Router>
   );
