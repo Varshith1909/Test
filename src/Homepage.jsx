@@ -45,11 +45,11 @@ const HomePage = () => {
             </Row>
 
             {/* Call-to-Action Button */}
-            <Row className="my-5">
+            {/* <Row className="my-5">
                 <Col className="text-center">
                     <Button variant="primary" size="lg" onClick={handleClick}>Join Now</Button>
                 </Col>
-            </Row>
+            </Row> */}
         </Container>
     );
 };
